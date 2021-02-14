@@ -1,0 +1,13 @@
+FROM  python:3.8.0
+COPY . /usr/app
+EXPOSE 5000
+WORKDIR /usr/app
+RUN pip install --upgrade pip
+RUN pip uninstall enum34
+RUN pip install --no-dependencies pyad
+RUN pip install -r requirements.txt --ignore-installed six
+RUN pip install flask
+RUN pip install flasgger	
+ENV FLASK_APP=flask_app.py
+ENTRYPOINT [ "flask"]
+CMD [ "run", "--host", "0.0.0.0" ]
